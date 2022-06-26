@@ -1,0 +1,549 @@
+<!DOCTYPE html PUBLIC -//W3C//DTD XHTML 1.0 Transitional//EN http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>手机产品数据集可视化</title>
+    <!-- 引入 echarts.js -->
+    <script src="js/echarts.js"></script>
+    <!-- 引入 echarts.js -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/roma.js"></script>
+    <script src="js/westeros.js"></script>
+    <style>
+		/*使用flex样式，将多个div合并为一行~*/
+		.mainDiv {
+			display: flex;
+			
+			/* background-color: rgba(175, 228, 194, 0.263); */
+			background-color: white;
+		}
+		
+		div {
+			border: 0.1px solid #e6b600;
+		}
+		.mainDiv2{
+            text-align:center; 
+            
+			color: 	#0098d9;
+			background-color: #85f0b7c7;
+            border: 3px solid #cda819;
+        }
+	</style>
+</head>
+<body>
+    <div class="mainDiv2" style="height:10%; font-size: 50;" >手机产品数据可视化</div>
+    <div class="mainDiv" style="width: 100%;" >
+		<!--left-->
+		<div style="width:100%;">
+			<div class="mainDiv" style="height: 420px;">
+				<div id="main1" style="width: 33.3%;">div1</div>
+				<div id="main5" style="width: 33.3%;">div2</div>
+				<div id="main3" style="width: 33.3%;">div3</div>
+			</div>
+			<div class="mainDiv" style="height: 420px;">
+				<div id="main2"style="width: 33.3%;">div4</div>
+				<div id="main4" style="width: 33.3%;">div5</div>
+				<div id="main6" style="width: 33.3%;">div5</div>
+			</div>
+		</div>
+	</div> 
+    <div class="mainDiv" style="height: 420px;">
+        <div id="main7" style="width: 100%;">div1</div>
+    </div>
+    
+    
+    <script type="text/javascript">
+        // 指定饼状图图表的配置项和数据
+        var option1 = {
+          
+            // 图表标题
+            title : {
+                text: '手机参评方案',  // 标题内容
+                subtext: '思维策略',
+                x:'center'                 // 居中显示
+            },
+            // 鼠标触发提示
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"  // 展示格式
+            },
+            // 图例
+            legend: {
+                orient : 'vertical',    // 垂直显示
+                x : 'left',             // 显示位置--左上
+                data:['手机测评','手机配置','视频广告','品牌影响','手机性能']
+            },
+            calculable : true,
+            series : [
+              
+                {
+                    name:'销售来源',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', 225],
+                    data:[
+                        {value:335, name:'手机测评'},
+                        {value:310, name:'手机配置'},
+                        {value:234, name:'视频广告'},
+                        {value:135, name:'品牌影响'},
+                        {value:1548, name:'手机性能'}
+                    ]
+                }
+            ]
+        };
+
+        // 指定柱状图图表的配置项和数据
+        var option2 = {
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : { // 指示器类型，shadow为阴影指示器
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data:['手机测评','手机配置','视频广告','品牌影响','手机性能']
+            },
+            // 工具栏组件
+            toolbox: {
+                show : true,
+                orient : 'vertical',
+                top : 'center',
+                feature : {
+                    mark : {show: true},
+                    // 启用的动态类型，包括'line'（切换为折线图）, 'bar'（切换为柱状图）, 'stack'（切换为堆叠模式）, 'tiled'（切换为平铺模式）
+                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                    restore : {show: true},     // 是否支持配置项还原
+                    saveAsImage : {show: true}  // 保存图片
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['2018','2019','2020','2021','2022']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    splitArea : {show : true}
+                }
+            ],
+            grid: {
+                x2:40
+            },
+            series : [
+                {
+                    name:'手机配置',
+                    type:'bar',
+                    stack: '总量',
+                    data:[335, 332, 301, 334, 390]
+                },
+                {
+                    name:'手机测评',
+                    type:'bar',
+                    stack: '总量',
+                    data:[120, 310, 101, 134, 90]
+                },
+                {
+                    name:'视频广告',
+                    type:'bar',
+                    stack: '总量',
+                    data:[220, 182, 234, 234, 290]
+                },
+                {
+                    name:'品牌影响',
+                    type:'bar',
+                    stack: '总量',
+                    data:[150, 232, 201, 135, 190]
+                },
+                {
+                    name:'手机性能',
+                    type:'bar',
+                    stack: '总量',
+                    data:[820, 932, 901, 934, 1548]
+                }
+            ]
+        };
+        // 对饼状图dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('main1') ,'roma');
+        myChart1.setOption(option1);    // 按option1展示myChart1图表
+
+        // 对柱状图dom，初始化echarts实例
+        var myChart2 = echarts.init(document.getElementById('main2'),'roma');
+        myChart2.setOption(option2);
+
+        // 将myChart1和myChart2关联起来
+        echarts.connect([myChart1, myChart2])
+
+        // 配置自动适应Windows窗口大小
+        setTimeout(function (){
+            window.onresize = function () {
+                myChart.resize();
+                myChart2.resize();
+            }
+        },200)
+
+		
+	// 使用刚指定的配置项和数据显示图表。
+	myChart1.setOption(option1);
+	// 处理点击事件并且跳转到相应的百度搜索页面
+	myChart1.on('click', function (params) {
+		window.open('https://www.antutu.com/search.htm?keyword=' + encodeURIComponent(params.name));
+	});
+
+	// 基于准备好的dom，初始化echarts实例
+	var myChart3 = echarts.init(document.getElementById('main3'),'westeros');
+
+// 准备图表展示数据
+var data_name = ["苹果手机","华为手机","小米手机","vivo手机","一加手机"]
+var data_num = [8799, 5466, 2999, 3999,2999]
+
+// 指定图表的配置项和数据
+var option3 = {
+	title: {
+		text: '手机销售平均价格' // 图表标题
+	},
+	tooltip: {},
+	legend: {
+		data:['销量']       // 图例
+	},
+	xAxis: {
+		data: data_name,     // x轴数据
+        axisLabel: {
+		    interval: 0, //设置成 0 强制显示所有横轴信息
+			rotate: -30, //-30度角倾斜显示
+		}
+	},
+	yAxis: {},              // y轴默认自动
+	series: [{
+		// 柱状图
+		type: 'bar',
+		data: data_num,
+		// 显示标签数量
+		label: {
+			normal: {
+				show: true,
+				position: 'top'     // 显示位置
+			}
+		},
+		//配置样式
+		itemStyle: {
+			//通常情况下样式
+			normal:{
+				//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+				color: function (params){
+					var colorList = ["#c12e34",
+            "#e6b600",
+            "#0098d9",
+            "#2b821d",
+            "#005eaa",
+            "#339ca8",
+            "#cda819",
+            "#32a487"];
+					return colorList[params.dataIndex];
+				}
+			},
+			//鼠标悬停时，显示强调效果
+			emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+			}
+		},
+	}],
+};
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChart3.setOption(option3);
+		// 处理点击事件并且跳转到相应的搜索页面
+		myChart3.on('click', function(params){
+			// 跳转百度搜素
+			// window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(params.name))
+			// 跳转淘宝搜索
+			// window.open('https://s.taobao.com/search?q=' + encodeURIComponent(params.name))
+            // 跳转京东搜索
+            window.open('https://search.jd.com/Search?keyword=' + encodeURIComponent(params.name))
+		})
+		
+		// 基于准备好的dom，初始化echarts实例
+	var myChart4 = echarts.init(document.getElementById('main4'),'westeros');
+    // 各个维度的最大值
+    var dataMax = [
+      {
+        name: '易用性',
+        max: 200
+      },
+      {
+        name: '续航',
+        max: 5200
+      },
+      {
+        name: '跑分',
+        max: 10000
+      },
+      {
+        name: '拍照',
+        max: 7000
+      },
+      {
+        name: '功能',
+        max: 100
+      }
+    ]
+    var option4 = {
+      radar: { 
+        indicator: dataMax, // 配置各个维度的最大值
+        shape: 'polygon' // 配置雷达图最外层的图形 circle polygon
+      },
+      series: [
+        {
+          type: 'radar', // radar 此图表时一个雷达图
+          label: { // 设置标签的样式
+            show: true // 显示数值
+          },
+          
+        //   areaStyle: {}, // 将每一个产品的雷达图形成阴影的面积
+          data: [
+            {
+              name: '苹果手机',
+              value: [150	,3200	,7800	,4200	,89]
+            },
+            {
+              name: '华为手机',
+              value: [180	,4200	,6500	,5220	,85              ]
+            },
+            {
+              name: '小米手机',
+              value: [160	,5200	,8000	,6200	,80]
+            },
+            {
+              name: 'vivo手机',
+              value: [140	,4200	,9000	,5200	,75]
+            },
+            {
+              name: '一加手机',
+              value: [140	,4500	,8100	,5500	,78]
+            }
+          ]
+        }
+      ]
+    }
+    // 使用刚指定的配置项和数据显示图表。
+		myChart4.setOption(option4);
+		
+		//基于准备好的DOM，初始化ECharts图表
+        var myChart5 = echarts.init(document.getElementById("main5"),'westeros');
+        //指定图表的配置项和数据
+        var option5 = {
+            title: {
+                text: '手机排行',
+                subtext: '数据来自安兔兔',
+            },
+            tooltip: {
+                trigger: 'axis',
+            },
+            legend: {
+                data: ['跑分', '性价比'],
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: { show: true },
+                    dataView: { show: true, readOnly: false },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true },
+                },
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'value',  //设置柱状图
+                    boundaryGap: [0, 0.01],
+                },
+            ],
+            yAxis: [
+                {
+                    type: 'category',
+                    data: ['一加', 'vivo', '小米', '华为', '苹果'],
+                },
+            ],
+            series: [
+                {
+                    name: '跑分',
+                    type: 'bar',
+                    data: [7800,6500,8000,9000,8100],
+                },
+                {
+                    name: '性价比',
+                    type: 'bar',
+                    data: [2930, 3500, 4580, 4020, 3250],
+                },
+            ],
+        };
+        window.addEventListener("resize", function () {
+			myChart5.resize();  //使图表自适应窗口的大小
+		});
+		//回调函数处理鼠标点击事件并且显示各数据信息内容
+		myChart5.on('click', function (params) {
+			alert("第" + (params.dataIndex + 1) + "件产品:" + params.name + "的" +
+				params.seriesName + "为:" + params.value +
+				"\n\n 1--componentType:" + params.componentType +
+				"\n 2--seriesType:" + params.seriesType +
+				"\n 3--seriesIndex:" + params.seriesIndex +
+				"\n 4--seriesName:" + params.seriesName +
+				"\n 5--name:" + params.name +
+				"\n 6--dataIndex:" + params.dataIndex +
+				"\n 7--data:" + params.datax +
+				"\n 8--dataType:" + params.dataType +
+				"\n 9--value:" + params.value +
+				"\n 10--color:" + params.color);
+		});
+        //使用刚指定的配置项和数据显示图表
+        myChart5.setOption(option5);
+
+		//基于准备好的DOM，初始化ECharts图表
+		var myChart6 = echarts.init(document.getElementById("main6"),'westeros');
+		option6 = {
+            title: {
+                text: '手机配置'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['CPU', 'GPU', 'MEM', 'UX', 'SUM']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['CPU', 'GPU', 'MEM', 'UX', 'SUM']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                name: 'CPU',
+                type: 'line',
+                stack: 'Total',
+                data: [175898	,429716	,98514	,829272,829272 ]
+                },
+                {
+                name: 'GPU',
+                type: 'line',
+                stack: 'Total',
+                data: [169457	,269176	,117627	,120822,729272]
+                },
+                {
+                name: 'MEM',
+                type: 'line',
+                stack: 'Total',
+                data: [220864	,425647	,162361	,168527,529272]
+                },
+                {
+                name: 'UX',
+                type: 'line',
+                stack: 'Total',
+                data: [258646	,386441	,188710	,180048,729272]
+                },
+                {
+                name: 'SUM',
+                type: 'line',
+                stack: 'Total',
+                data: [215088	,411089	,155680	,167458,629272]
+                }
+            ]
+        };
+		//使用刚指定的配置项和数据显示图表
+		myChart6.setOption(option6); 
+
+        var myChart7 = echarts.init(document.getElementById('main7'),'westeros');
+    // 显示标题，图例和空的坐标轴
+    function fetchData(cb) {
+      // 通过 setTimeout 模拟异步加载
+      setTimeout(function () {
+        cb({
+          categories: ["性能", "测评", "配置", "续航", "外观"],
+          data: [ 75, 85, 80, 85, 90]
+        });
+      }, 5000);
+    }
+    // 初始 option
+    option7 = {
+        
+      title: {
+        text: '手机综合数据'
+      },
+      tooltip: {},
+      legend: {
+        data: ['销量'],
+        color:'#8dc63f'
+      },
+      xAxis: {
+        data: []
+      },
+      yAxis: {},
+      series: [{
+        name: '销量',
+        type: 'bar',
+        data: [],
+        //配置样式
+		itemStyle: {
+			//通常情况下样式
+			normal:{
+				//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+				color: function (params){
+					var colorList = [ "#3fb1e3",
+            "#6be6c1",
+            "#626c91",
+            "#a0a7e6",
+            "#c4ebad",
+            "#96dee8"];
+					return colorList[params.dataIndex];
+				}
+			},
+			//鼠标悬停时，显示强调效果
+			emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+			}
+		},
+      }]
+    };
+    myChart7.showLoading();
+    myChart7.setOption(option7);
+    fetchData(function (data) {
+      myChart7.hideLoading();
+      myChart7.setOption({
+        xAxis: {
+          data: data.categories
+        },
+        series: [{
+          // 根据名字对应到相应的系列
+          name: '销量',
+          data: data.data
+        }]
+      });
+    });
+          
+
+        
+
+    </script>
+
+</body>
+</html>
